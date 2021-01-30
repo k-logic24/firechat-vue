@@ -2,12 +2,12 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 
 const config = {
-  apiKey: 'AIzaSyBEou3FT3sQZOVDpa-OsCM3d7Taj6e5hho',
-  authDomain: 'firechat-vue-46512.firebaseapp.com',
-  projectId: 'firechat-vue-46512',
-  storageBucket: 'firechat-vue-46512.appspot.com',
-  messagingSenderId: '914552365141',
-  appId: '1:914552365141:web:28ae6c665e5b0168a2b4dc'
+  apiKey: process.env.VUE_APP_API_KEY,
+  authDomain: process.env.VUE_APP_AUTH_DOMAIN,
+  projectId: process.env.VUE_APP_PROJECT_ID,
+  storageBucket: process.env.VUE_APP_STORAGE,
+  messagingSenderId: process.env.VUE_APP_MESSAGE_SENDER_ID,
+  appId: process.env.VUE_APP_APPID
 }
 
 const db = firebase.initializeApp(config)

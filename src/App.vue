@@ -14,6 +14,7 @@
           placeholder="Please enter your username..."
           v-model="inputUserName"
         >
+        <p v-if="isValidateUserName" class="pt-2 text-red-600 text-sm">please enter username.</p>
       </div>
       <button
         type="submit"
@@ -23,7 +24,7 @@
       </button>
     </form>
     <div class="max-w-screen-md w-full" v-else>
-      <header class="mb-4">
+      <header class="px-2 sm:px-0 mb-4">
         <p class="text-right text-white">
           <button @click="logout">LogOut</button>
         </p>
@@ -48,13 +49,13 @@
           <div class="flex">
             <input
               type="text"
-              class="flex-1 bg-gray-100 rounded-tl rounded-bl p-2"
+              class="flex-1 bg-gray-100 rounded-tl rounded-bl py-2 px-4"
               placeholder="Write a Message..."
               v-model="inputMessage"
             />
             <button
               type="submit"
-              class="rounded-tr rounded-br bg-red-400 text-white text-center p-2 hover:bg-red-500 transition-all duration-300"
+              class="rounded-tr rounded-br bg-red-400 text-white text-center py-2 px-4 hover:bg-red-500 transition-all duration-300"
             >
               Send
             </button>
@@ -84,18 +85,22 @@ export default {
   setup () {
     const inputUserName = ref<string>('')
     const inputMessage = ref<string>('')
+    const isValidateUserName = ref<boolean>(false)
     const state = reactive<StateProps>({
       messages: [],
       username: ''
     })
 
-    const isStepLogin = computed(() => state.username === '' || state.username === null)
+    const isStepLogin = computed(() => state.username === '')
 
     const login = () => {
-      if (inputUserName.value !== '' || inputUserName.value !== null) {
+      if (inputUserName.value !== '') {
         state.username = inputUserName.value
         inputUserName.value = ''
+        isValidateUserName.value = false
+        return
       }
+      isValidateUserName.value = true
     }
 
     const logout = () => {
@@ -104,7 +109,7 @@ export default {
 
     const sendMessage = () => {
       const messagesRef = db.database().ref('messages')
-      if (inputMessage.value === '' || inputMessage.value === null) return
+      if (inputMessage.value === '') return
       const message = {
         username: state.username,
         content: inputMessage.value
@@ -134,6 +139,7 @@ export default {
     return {
       inputUserName,
       inputMessage,
+      isValidateUserName,
       isStepLogin,
       state,
       login,

@@ -9,8 +9,9 @@
       <div class="mt-4">
         <label for="username" class="text-sm text-gray-500">USER NAME</label>
         <input
-          type="text" id="username"
-          class="w-full border rounded px-4 py-2 focus:outline-none"
+          type="text"
+          id="username"
+          class="w-full border rounded px-4 py-2 focus:outline-none focus:border-red-400"
           placeholder="Please enter your username..."
           v-model="inputUserName"
         >
